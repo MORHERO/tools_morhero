@@ -1,8 +1,8 @@
-name: MORHERO-listed
-slug: mh-listed
+name: tools_morhero
+slug: tools_mh
 type: theme
 version: 1.0.0
-description: Theme for subdomain.morhero.dev
+description: Theme for tools.morhero.dev
 icon: microchip
 author:
   name: MORHERO
