@@ -1,0 +1,97 @@
+@import 'partials/variables';
+@import 'partials/mixin';
+
+html, body {
+	margin:0;
+	background-color:$cl_bg;
+	font-size: $fs_m;
+	color: $cl_font;
+	overflow-x: hidden;
+}
+section {outline: none;}
+p, a, span, div, body {
+	font-family: $font;
+	font-weight: 400;
+}
+p.headline {
+	@include font-headline;
+	font-size: $fs_xl;
+}
+a {
+	color: $cl_blue;
+}
+a.btn, button {
+	display: inline-block;
+	position: relative;
+	@include font-headline;
+	font-size: $fs_l;
+	text-decoration: none;
+	text-transform: uppercase;
+	background-color: $cl_blue;
+	color: $cl_bg;
+	padding: 7px 12px 5px 12px;
+	margin-right: 20px;
+	border:none;
+	cursor: pointer;
+	@media only screen and (max-device-width: 960px) and (-webkit-min-device-pixel-ratio: 1) {
+		margin-right: 10px;
+	}
+	&.pink {
+		background-color: $cl_pink;
+	}
+	&:hover {
+		//transform: translateY(-4px);
+	}
+}
+h1,h2,h3,h4,h5,.title {
+	@include font-headline;
+	text-transform: uppercase;
+	font-weight: 400;
+}
+
+.flexbox {
+	display: flex;
+	&.left {
+		justify-content: flex-start!important;
+	}
+	&.center {
+		justify-content: center!important;
+	}
+	&.right {
+		justify-content: flex-end!important;
+	}
+}
+.grid {
+	display: grid;
+}
+
+
+main {
+	margin: 0 auto;
+	width: 100%;
+}
+
+@media only screen and (max-device-width: 960px) and (-webkit-min-device-pixel-ratio: 1) {
+	
+}
+
+@media screen and (prefers-reduced-motion: reduce) {  
+	* {
+		/* Very short durations means JavaScript that relies on events still works */
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+	}
+}
+
+@import 'partials/sidenav';
+@import 'partials/footer';
+
+@import 'modular/parts/form';
+@import 'modular/parts/module_headline';
+@import 'modular/parts/pop-up';
+
+@import 'modular/tool-team-generator';
+
+@import 'modular/base/text';
+

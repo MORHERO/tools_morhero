@@ -1,0 +1,39 @@
+title: modular-default
+
+extends@: default
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+
+          fields:
+            header.headline:
+                ordering@: 2
+                type: fieldset
+                title: MH_BASIC.HEADLINE
+                collapsible: true
+                fields:
+                  columns:
+                    type: columns
+                    fields:
+                      column1:
+                        type: column
+                        fields:
+                          header.headline.underline:
+                            type: text
+                            label: MH_BASIC.HEADLINE.UNDERLINE
+                            style: vertical
+                      column2:
+                        type: column
+                        fields:
+                          header.headline.end:
+                            type: text
+                            label: MH_BASIC.HEADLINE.END
+                            style: vertical

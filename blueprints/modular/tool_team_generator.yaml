@@ -1,0 +1,25 @@
+title: Team Generator
+extends@: modular-default
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+
+          fields:
+
+            header.content:
+              ordering@: 3
+              type: fieldset
+              title: MH_BASIC.CONTENT.TITLE
+              collapsible: true
+              fields:
+                header.content.text:
+                  type: text
+                  label: MH_BASIC.CONTENT.TEXTFIELD

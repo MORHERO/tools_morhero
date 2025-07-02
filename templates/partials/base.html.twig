@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="{{ grav.language.getActive ?: grav.config.site.default_lang }}">
+	<head>
+		{% block head deferred %}
+			<meta charset="utf-8" />
+			<title>{% if page.title %}{{ page.title|e('html') }} | {% endif %}{{ site.title|e('html') }}</title>
+			<meta name="description" content="{{ "MH_FE.HEAD.DESCRIPTION"|t }}">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			{% include 'partials/metadata.html.twig' %}
+
+			<link rel="apple-touch-icon" sizes="180x180" href="{{ url('theme://assets/media/favicon/apple-touch-icon.png') }}">
+			<link rel="icon" type="image/png" sizes="32x32" href="{{ url('theme://assets/media/favicon/favicon-32x32.png') }}">
+			<link rel="icon" type="image/png" sizes="16x16" href="{{ url('theme://assets/media/favicon/favicon-16x16.png') }}">
+			<link rel="manifest" href="{{ url('theme://assets/media/favicon/site.webmanifest') }}">
+			<link rel="canonical" href="{{ page.url(true, true) }}" />
+		{% endblock head %}
+
+		{% block stylesheets %}
+			{% do assets.addCss('theme://assets/css/styles.min.css') %}
+		{% endblock %}
+
+		{% block javascripts %}
+			{% do assets.addJs('theme://assets/js/modules.js', {group:'bottom'}) %}
+			{% do assets.addJs('theme://assets/js/main.js', {group:'bottom'}) %}
+		{% endblock %}
+
+		{% block assets deferred %}
+			{{ assets.css()|raw }}
+			{{ assets.js()|raw }}
+		{% endblock %}
+	</head>
+	<body id="top" class="{% block body_classes %}{{ body_classes }}{% endblock %}">
+		{% block sidenav %}
+			{% include 'partials/sidenav.html.twig' %}
+		{% endblock %}		
+
+		{% block main %}
+			<main>
+				{% block content %}{% endblock %}
+			</main>
+		{% endblock %}
+
+		{% block footer %}
+			{% include 'partials/footer.html.twig' %}
+		{% endblock %}
+
+		{% block bottom %}
+			{{ assets.js('bottom')|raw }}
+		{% endblock %}
+
+	</body>
+</html>

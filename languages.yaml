@@ -1,0 +1,150 @@
+en:
+  MH_BASIC:
+    ALIGN: "Alignment"
+    CATEGORY: "Category"
+    CENTER: "Center"
+    COLOR:
+      BG: "Background Color"
+    DESCRIPTION: "Description"
+    ENABLE: "Enable"
+    EXPERTISE:
+      LIST: "Expertise List"
+    GRAPH:
+      SECTION: "Graph section"
+    HEADLINE: "Headline"
+    HEIGHT: "Height"
+    INTRO: 
+      SECTION: "Intro section"
+      OVERLINE: "Intro overline"
+      TITLE: "Intro Title"
+      TEXT: "Intro Text"
+    LEFT: "Left"
+    LINK:
+      TEXT: "Link text"
+      URL: "Link URL"
+    MASTER_HEADER: "Mainheader"
+    MEDIA:
+      SELECT: "Media select"
+      UPLOAD: "Media upload"
+      ALT: "Media alt text"
+      TITLE: "Media title text"
+    PAGESELECT: "Select a page"
+    PARALLAX:
+      SETTINGS: "Parallax settings"
+    PROJECT:
+      LIST: "Project list"
+    RIGHT: "Right"
+    SUBTITLE: "Subtitle"
+    TEASER: "Teaser section"
+    TITLE: "Title"
+    TYPE: "Type"
+  MH_FE:
+    HEAD:
+      DESCRIPTION: "Hey, I'm MORHERO. A web developer from southern Germany. I deal with everything that has to do with web development, a online presence and the like."
+    NAV:
+      LOGO:
+        TITLE: "MORHERO"
+        ALT: "MORHERO Logo"
+    CONTACT_FOLLOW:
+      CONTACT_TITLE: 'CONTACT'
+      FOLLOW_TITLE: 'FOLLOW ME'
+      MAIL_TITLE: 'Mail'
+      MAIL_DESCRIPTION: 'Contact me via mail for all inquiries that are not possible via my contact form.'
+    CONTACTFORM:
+      TITLE: 'Contactform'
+      DESCRIPTION: 'Optimize your online presence with the help of high-performance code, individual design and content tailored to your needs. Contact me today and get a free consultation.'
+      REASON_HEALINE: 'Contact Reason*'
+      REASONS:
+        _1: 'New Website'
+        _2: 'Redesign Website'
+        _3: 'Support'
+        _4: 'SEA/SEO'
+        _5: 'Optimization'
+        _6: 'Other'
+      NAME: 'Name*'
+      MAIL: 'Mail*'
+      COMPANY: 'Company'
+      DOMAIN: 'Website'
+      DETAILS: 'Details*'
+      FILESELECT: 'Select your files'
+      FILESIZE: 'Max total filesize: 10MB'
+      CONSULTING: 'Request free Consulting'
+      DATA: 'Agree to data protection regulations*'
+      SEND: 'Send message'
+    FOOTER:
+      IMPRINT: 'Imprint'
+      DATA: 'Data Protection'
+de:
+  MH_BASIC:
+    ALIGN: "Ausrichtung"
+    CATEGORY: "Kategorie"
+    CENTER: "Zentriert"
+    COLOR:
+      BG: "Hintergrundfarbe"
+    DESCRIPTION: "Beschreibung"
+    ENABLE: "Einschalten"
+    EXPERTISE:
+      LIST: "Expertisen Liste"
+    HEADLINE: "Überschrift"
+    HEIGHT: "Höhe"
+    INTRO: 
+      SECTION: "Einleitung"
+      OVERLINE: "Einleitung vor-überschrift"
+      TITLE: "Einleitungstitel"
+      TEXT: "Einleitungstext"
+    LEFT: "Links"
+    LINK:
+      TEXT: "Link text"
+      URL: "Link URL"
+    MASTER_HEADER: "Hauptheader"
+    MEDIA: 
+      SELECT: "Medien auswählen"
+      UPLOAD: "Medien hochladen"
+      ALT: "Medien alt text"
+      TITLE: "Medien title text"
+    PAGESELECT: "Seiten auswahl"
+    PARALLAX:
+      SETTINGS: "Parallax Einstellungen"
+    PROJECT:
+      LIST: "Projekt Liste"
+    RIGHT: "Rechts"
+    SUBTITLE: "Untertitel"
+    TEASER: "Teaser"
+    TITLE: "Titel"
+    TYPE: "Type"
+  MH_FE:
+    HEAD:
+      DESCRIPTION: "Hey ich bin MORHERO. Ein Webentwickler aus Süddeutschland. Ich beschäftige mich mit allem was mit Webentwicklung, einer Online Präsenz und ähnlichem zu tun hat."
+    NAV:
+      LOGO:
+        TITLE: "MORHERO"
+        ALT: "MORHERO Logo"
+    CONTACT_FOLLOW:
+      CONTACT_TITLE: 'KONTAKT'
+      FOLLOW_TITLE: 'FOLGE MIR'
+      MAIL_TITLE: 'Mail'
+      MAIL_DESCRIPTION: 'Kontaktiere mich über Mail für alle Anfragen, die nicht über mein Kontaktformular möglich sind.'
+    CONTACTFORM:
+      TITLE: 'Kontaktformular'
+      DESCRIPTION: 'Optimiere deinen Online-Auftritt mit der Hilfe von performantem Code, individuellem Design und auf dich zugeschnittenen Inhalten. Kontaktiere mich noch heute und erhalte ein kostenloses Beratungsgespräch.'
+      REASON_HEALINE: 'Kontaktgrund*'
+      REASONS:
+        _1: 'Neue Webseite'
+        _2: 'Neugestaltung der Website'
+        _3: 'Unterstützung'
+        _4: 'SEA/SEO'
+        _5: 'Optimierung'
+        _6: 'Sonstiges'
+      NAME: 'Name*'
+      MAIL: 'Mail*'
+      COMPANY: 'Firma'
+      DOMAIN: 'Webseite'
+      DETAILS: 'Details*'
+      FILESELECT: 'Anhänge auswählen'
+      FILESIZE: 'Maximale Gesamtdateigröße: 10MB'
+      CONSULTING: 'Kostenlose Beratung anfordern'
+      DATA: 'Datenschutzbestimmungen zustimmen*'
+      SEND: 'Nachricht senden'
+    FOOTER:
+      IMPRINT: 'Impressum'
+      DATA: 'Datenschutz'

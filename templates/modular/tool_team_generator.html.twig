@@ -1,0 +1,107 @@
+{% block stylesheets %}
+    {% do assets.addCss('theme://assets/css/tiny-slider.css') %}
+{% endblock %}
+
+{% block javascripts %}
+    {% do assets.addJs('theme://assets/js/cdm.js', {group:'bottom'}) %}
+    {% do assets.addJs('theme://assets/js/tiny-slider.js', {group:'bottom'}) %}
+{% endblock %}
+
+<section modular="team-generator">
+    <div class="wrap">
+
+        <div class="intro">
+            <h2>Team Generator</h2>
+            <p class="descr">Lorem ipsum dolor sit amet</p>
+        </div>
+
+        <div class="tns">
+            <div class="main">
+                <div class="player-input">
+                    <h3>Teilnehmer eintragen:</h3>
+
+                    <div class="wrap">
+                        <div class="input">
+                            <label>Name</label>
+                            <input type="text" name="player_name_master">
+                        </div>
+                        <div class="input-number">
+                            <label>Rating</label>
+                            <div class="wrap">
+                                <input type="number" id="player_rating_master" name="player_rating_master" oninput="this.style.width = (this.value.length * 0.8) + 'em'" min="2">
+                                <button class="value-control" onclick="team_amount.stepUp()" title="Rating erhöhen" aria-label="Rating erhöhen">+</button>
+                                <button class="value-control" onclick="team_amount.stepDown()" title="Rating verringern" aria-label="Rating verringern">-</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button task="add_player">Hinzufügen</button>
+
+                    <p>Teilnehmer Anzahl: <span target="player_count">0</span></p>
+
+                    <table class="inputlist">
+                        <tr>
+                            <!-- ADD CAPTAIN SELECTION -->
+                            <th>Name</th>
+                            <th>Rating</th>
+                            <th></th>
+                        </tr>
+                        <!--<tr entry=1>
+                            <td><input type="text" name="player_name_1" value="Beispielname"></td>
+                            <td><input type="number" name="player_rating_1" value="1000"></td>
+                            <td><button>REMOVE</button></td>
+                        </tr>-->
+                    </table>                        
+
+                </div>
+                <div class="settings">
+                    <h3>Einstellungen</h3>
+                    <div class="input-number">
+                        <label>Anzahl an Teams</label>
+                        <div class="wrap">
+                            <input type="number" id="team_amount" name="team_amount" value=2 oninput="this.style.width = (this.value.length * 0.8) + 'em'" min="2">
+                            <button class="value-control" onclick="team_amount.stepUp()" title="Team hinzufügen" aria-label="Team hinzufügen">+</button>
+                            <button class="value-control" onclick="team_amount.stepDown()" title="Team entfernen" aria-label="Team entfernen">-</button>
+                        </div>
+                        <p class="helper">Die Menge an Teams an die die Spieler verteilt werden sollen.</p>
+                    </div>
+                    <div class="checkbox">
+                        <label class="control control--checkbox">
+                            Rating berücksichtigen
+                            <input type="checkbox" id="rating_enabled" name="rating_enabled" checked/>
+                            <div class="control__indicator"></div>
+                        </label>
+                        <p class="helper">Wenn das Rating ausgeschaltet ist werden Teams völlig zufällig erstellt</p>
+                    </div>
+                    <div class="checkbox">
+                        <label class="control control--checkbox">
+                            Rating invertieren
+                            <input type="checkbox" id="rating_inverted" name="rating_inverted"/>
+                            <div class="control__indicator"></div>
+                        </label>
+                        <p class="helper">Bei invertiertem Rating ist ein niedriges Rating besser.</p>
+                    </div>
+                </div>
+
+                <div class="flexbox center">
+                    <button task="generate_teams">Teams erstellen</button>
+                </div>
+            </div>
+            
+            <div class="result">
+                <div class="teams flexbox">
+                    <!--<div class="team">
+                        <p class="teamname">Team 1</p>
+                        <p class="teamrating">Teamrating: <span target="team_rating">1000</span></p>
+                        <div class="player flexbox">
+                            <span class="name">Beispielname</span><span class="rating">10500</span>
+                        </div>
+                    </div>-->
+                </div>
+
+                <button task="return">Zurück</button>
+            </div>
+        </div>
+        
+
+    </div>
+</section>

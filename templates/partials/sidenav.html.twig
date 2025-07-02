@@ -1,0 +1,50 @@
+<nav class="">
+	<div class="top">
+		<div class="flexbox logo-wrap">
+			<a href="https://morhero.dev">
+				<div class="logo"><img src="{{ url('theme://assets/media/logo/logo_glitch.png') }}" title="{{ "MH_FE.NAV.LOGO.TITLE"|t }}" alt="{{ "MH_FE.NAV.LOGO.ALT"|t }}"/></div>
+				<span>MORHERO</span>
+			</a>
+		</div>
+		<div class="separator"></div>
+	</div>
+	
+	<div class="center">
+		<div class="flexbox">
+			{% for p in pages.children.visible %}
+				{% set active_page = (p.active or p.activeChild) ? 'active' : '' %}
+
+				<div class="element {{ active_page }}">
+					<a href="{{ p.url }}">
+						<div class="icon">
+							<img src="{{ url('theme://assets/media/icon/home.svg') }}" title="{{ p.title }}" alt="{{ p.icon.alt }}">
+						</div>
+					
+						<span>{{ p.title }}</span>
+						
+					</a>
+				</div>
+			{% endfor %}
+			<div class="filler"></div>
+		</div>
+	</div>
+	
+	<div class="bottom">
+		<div class="separator"></div>
+		<div class="flexbox settings">
+			{% include 'partials/langswitcher.html.twig'  %}
+
+			<div class="toggle">
+				<div class="icon">
+					<img src="{{ url('theme://assets/media/icon/chevrons-left.svg') }}" title="{{ p.title }}" alt="{{ p.icon.alt }}">
+				</div>
+				<a href="{{ p.url }}" class="{{ active_page }}">
+					<div>
+						<span>{{ p.title }}</span>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	
+</nav>

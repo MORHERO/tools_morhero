@@ -1,0 +1,234 @@
+/*
+## BASE
+*/
+class SIDENAV {
+	constructor(parent) {
+		const that = this;
+
+		this._parent = parent;
+		this._toggle_btn = parent.querySelector('.bottom .toggle');
+		this._nav_status = (sessionStorage.getItem("nav_status")!=null)?(this._nav_status=sessionStorage.getItem("nav_status")):(1); // 1=open / 0=close
+
+		if(this._nav_status == 0){
+			this._toggle_nav();
+		}
+
+		// Event Listener
+		this._toggle_btn.addEventListener('click', function(e) {
+			that._toggle_nav();
+		});
+
+	}
+
+	_toggle_nav() {
+		if(this._nav_status) {
+			this._nav_status = 0;
+			this._parent.classList.add('closed');
+		}else {
+			this._nav_status = 1;
+			this._parent.classList.remove('closed');
+		}
+		
+		sessionStorage.setItem("nav_status", this._nav_status);
+		return;
+	}
+}
+
+/*
+## MODULARS
+*/
+class TEAMGEN {
+	constructor(parent) {
+		const that = this;
+
+		this._parent = parent;
+
+		this._add_player_btn = parent.querySelector('[task=add_player]');
+		this._input_playername = parent.querySelector('[name=player_name_master]');
+		this._input_playerrating = parent.querySelector('[name=player_rating_master]');
+
+		this._playerlist_dom = parent.querySelector('table.inputlist');
+		this._playerlist = [];
+
+		this._player_count = 0;
+		this._player_count_dom = parent.querySelector('[target=player_count]');
+		this._player_id = 0;
+		
+		this._settings_team_amount_dom = parent.querySelector('input[name=team_amount]');
+		this._settings_rating_enabled_dom = parent.querySelector('input[name=rating_enabled]');
+		this._settings_rating_inverted_dom = parent.querySelector('input[name=rating_inverted]');
+
+		this._teamlist = [];
+
+		this.tns = tns({
+			"container": "[modular=team-generator] .tns",
+			"items": 1,
+			"center": true,
+			"loop": false,
+			"swipeAngle": false,
+			"speed": 0,
+			"controls": false,
+			"nav": false
+		});
+
+		// Setup Event Listeners
+		this._add_player_event = this._add_player_btn.addEventListener('click', () => this._addPlayer());
+		this._generate_event = parent.querySelector('button[task=generate_teams]').addEventListener('click', () => this._generateTeams());
+		this._return_to_gen_event = parent.querySelector('button[task=return]').addEventListener('click', () => this.tns.goTo(0));
+	}
+
+
+	_addPlayer() {
+		let that = this;
+
+		let name = this._input_playername.value;
+		let rating = this._input_playerrating.value;
+
+		// Create dom elements
+		// <tr entry=[this._player_id]></tr>
+		let table_row = cdm.createSimpleElement('tr', '', [['entry', this._player_id]]);
+
+		// <td><input type="text" name="player_name_[this._player_id]" value="[this._input_playername.value]"></td>
+		let td_name = cdm.createSimpleElement('td');
+		let input_name = cdm.createSimpleElement('input', '', [['name', 'player_name_' + this._player_id],['value', this._input_playername.value]]);
+		td_name.appendChild(input_name);
+
+		// <td><input type="text" name="player_name_[this._player_id]" value="[this._input_playerrating.value]"></td>
+		let td_rating = cdm.createSimpleElement('td');
+		let input_rating = cdm.createSimpleElement('input', '', [['name', 'player_rating_' + this._player_id],['value', this._input_playerrating.value]]);
+		td_rating.appendChild(input_rating)
+
+		// <td><button>REMOVE</button></td>
+		let td_remove = cdm.createSimpleElement('td');
+		let btn_remove = cdm.createSimpleElement('button', '', [['target', this._player_id]], 'REMOVE');
+		// Setup Remove Player eventlistener
+		btn_remove.addEventListener('click', (e) => this._removePlayer(e.srcElement.getAttribute('target')));
+
+		td_remove.appendChild(btn_remove);
+
+		// Combine all Dom elements
+		table_row.appendChild(td_name);
+		table_row.appendChild(td_rating);
+		table_row.appendChild(td_remove);
+
+		this._playerlist_dom.appendChild(table_row);
+		this._playerlist[this._player_id] = {name: this._input_playername.value, rating: parseInt(this._input_playerrating.value)};
+
+		this._updatePlayerCount(+1);
+		this._player_id += 1;
+		console.log(this._playerlist);
+		return;
+	}
+	_removePlayer(target_id) {
+		let entry = this._parent.querySelector('[entry="'+ target_id +'"]');
+		entry.remove();
+
+		this._playerlist[this._player_id] = '';
+		this._updatePlayerCount(-1);
+
+		return;
+	}
+
+	_updatePlayerCount(value) {
+		this._player_count += value;
+		this._player_count_dom.innerHTML = this._player_count;
+
+		return;
+	}
+
+	_generateTeams() {
+		let that = this;
+
+		let team_amount = this._settings_team_amount_dom.value;
+		let rating_enabled = this._settings_rating_enabled_dom.value;
+		let rating_inverted = this._settings_rating_inverted_dom.value;
+
+		let playerlist_sorted = this._playerlist.slice();
+		playerlist_sorted.sort((a, b) => a.rating - b.rating);
+
+		let rating_total = 0;
+
+		playerlist_sorted.forEach((player) => {
+			let name = player.name;
+			let rating = player.rating;
+
+			//console.log(player.name + ' - ' + player.rating);
+
+			rating_total += player.rating;
+		});
+
+		let rating_average = rating_total / this._player_count;
+		console.log('Rating Total: ' + rating_total);
+		console.log('Rating Average: ' + rating_average);
+		console.log('team_amount: ' + team_amount);
+
+		while(playerlist_sorted.length > 0) {
+			for (let i = 0; i < team_amount; i++) {
+				if(!this._teamlist[i]) {
+					this._teamlist[i] = [];
+				}
+
+				if(playerlist_sorted[0]) {
+					// add lowest entry and it
+					this._teamlist[i].push(playerlist_sorted[0]);
+					playerlist_sorted.shift();
+				}
+				if(playerlist_sorted[playerlist_sorted.length-1]) {
+					// add highest entry and it
+					this._teamlist[i].push(playerlist_sorted[playerlist_sorted.length-1]);
+					playerlist_sorted.pop();
+				}
+			}
+		}
+
+		this._teamlist.forEach((team, index) => {
+			let team_rating_total = 0; 
+			let player_doms = [];
+
+			team.forEach((player) => {
+				player_doms.push(that._getPlayerDom(player));
+				team_rating_total += player.rating;
+			});
+			let team_dom = that._getTeamDom(player_doms, index, (team_rating_total / team.length));
+
+			that._parent.querySelector('.result .teams').appendChild(team_dom);
+		});
+
+		this.tns.goTo(1);
+		return;
+	}
+	_getPlayerDom(player) {
+		// <div class="player flexbox">
+		//		<p class="name">[player.name]</p><p class="rating">[player.rating]</p>
+		// </div>
+		let div_player = cdm.createSimpleElement('div', '', [['style', 'player flexbox']]);
+		let p_player_name = cdm.createSimpleElement('span', 'name', '', player.name);
+		let p_player_rating = cdm.createSimpleElement('span', 'rating', '', player.rating.toString());
+		div_player.appendChild(p_player_name);
+		div_player.appendChild(p_player_rating);
+
+		return div_player;
+	}
+	_getTeamDom(player_doms, team_index, team_rating_average) {
+		// 	<div class="team">
+		//		<p class="teamname">Team 1</p>
+		//		<p class="teamrating">Teamrating: <span target="team_rating">1000</span></p>
+		//		<div class="player flexbox">
+		//			<p class="name">[player.name]</p><p class="rating">[player.rating]</p>
+		//		</div>
+		//	</div>
+		let div_team = cdm.createSimpleElement('div', 'team');
+		let p_team_name = cdm.createSimpleElement('p', 'teamname', '', 'Team ' + team_index);
+		let p_team_rating = cdm.createSimpleElement('p', 'teamrating', '', 'Teamrating: ');
+		let span_team_rating = cdm.createSimpleElement('span', '', [['target', 'team_rating']], team_rating_average.toString());
+		p_team_rating.appendChild(span_team_rating);
+		div_team.appendChild(p_team_name);
+		div_team.appendChild(p_team_rating);
+
+		player_doms.forEach((player_dom) => {
+			div_team.appendChild(player_dom);
+		});
+
+		return div_team;
+	}
+}

@@ -1,0 +1,57 @@
+section[modular=team-generator] {
+	@include doc-width;
+
+	.intro {
+		h2 {
+			font-size: $fs-xl;
+		}
+		.descr {
+
+		}
+	}
+
+	.tns {
+
+	}
+
+	.main {
+		h3 {
+			font-size: $fs-xl;
+			text-decoration: underline;
+		}
+		.input {
+		}
+		.input, .checkbox {
+			.helper {
+				font-size: $fs-s;
+				margin-top: 0px;
+				opacity: 0.9;
+			}
+		}
+		.player-input {
+			>.wrap {
+				margin-bottom: 10px;
+			}
+		}
+		.inputlist {
+			th {
+				font-weight: 400;
+			}
+			input {
+				margin-bottom: 0px;
+			}
+		}
+
+		.settings {
+		    border: 2px solid $cl_blue;
+			padding: 0px 12px;
+    		margin: 46px 0px 10px;
+			h3 {
+				margin: -38px 0 12px -14px;
+				border: 2px solid $cl_blue;
+				padding: 6px 6px 4px;
+				width: fit-content;
+			}
+		}
+	}
+}

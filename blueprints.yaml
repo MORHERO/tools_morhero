@@ -1,0 +1,11 @@
+name: MORHERO-listed
+slug: mh-listed
+type: theme
+version: 1.0.0
+description: Theme for subdomain.morhero.dev
+icon: microchip
+author:
+  name: MORHERO
+  email: dev@morhero.dev
+  url: https://morhero.dev
+homepage: https://morhero.dev

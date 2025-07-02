@@ -1,0 +1,156 @@
+title: modular
+
+extends@: default
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+
+      fields:
+        content:
+          type: tab
+          title: PLUGIN_ADMIN.CONTENT
+
+          fields:
+            header.title:
+              ordering@: 0
+              type: text
+              autofocus: true
+              label: MH_BASIC.PAGE_TITLE
+              style: vertical
+            header.intro:
+                ordering@: 2
+                type: fieldset
+                title: MH_BASIC.INTRO.SECTION
+                collapsible: true
+                fields:
+                  columns:
+                    type: columns
+                    fields:
+                      column1:
+                        type: column
+                        fields:
+                          header.intro.line1:
+                            type: text
+                            autofocus: true
+                            label: MH_BASIC.INTRO.LINE1
+                            style: vertical
+                          header.intro.line2:
+                            type: text
+                            autofocus: true
+                            label: MH_BASIC.INTRO.LINE2
+                            style: vertical
+                          header.intro.line3:
+                            type: text
+                            autofocus: true
+                            label: MH_BASIC.INTRO.LINE3
+                            style: vertical
+                          header.intro.line4:
+                            type: text
+                            autofocus: true
+                            label: MH_BASIC.INTRO.LINE4
+                            style: vertical
+                          header.intro.media-upload:
+                            type: file
+                            label: PLUGIN_ADMIN.IMAGE
+                            multiple: false
+                            destination: 'user/uploads/header/'
+                            style: vertical
+                            avoid_overwriting: true
+                          header.intro.mediaselect:
+                            type: filepicker
+                            folder: 'user/uploads/header/'
+                            label: Select a file
+                            preview_images: true
+                            accept:
+                              - .png
+                              - .jpg
+            header.ending:
+              ordering@: 3
+              type: fieldset
+              title: MH_BASIC.HEADLINE
+              collapsible: true
+              fields:
+                columns:
+                  type: columns
+                  fields:
+                    column1:
+                      type: column
+                      fields:
+                        header.ending.link:
+                          type: text
+                          label: MH_BASIC.ENDING.LINK
+                    column2:
+                      type: column
+                      fields:
+                        header.ending.link_text:
+                          type: text
+                          label: MH_BASIC.ENDING.LINK_TEXT
+        module:
+          type: tab
+          title: Modul Config
+
+          fields:
+
+            content_title:
+              type: spacer
+              title: Content Definition
+
+            header.content.items:
+              type: textarea
+              yaml: true
+              label: Items
+              default: '@self.modular'
+              validate:
+                type: yaml
+
+            header.content.limit:
+              type: text
+              label: Max Item Count
+              default: 15
+              validate:
+                required: true
+                type: int
+                min: 1
+
+            header.content.order.by:
+              type: select
+              label: Order By
+              default: folder
+              options:
+                folder: Folder
+                title: Title
+                date: Date
+                default: Default
+
+            header.content.order.dir:
+              type: select
+              label: Order
+              default: asc
+              options:
+                asc: Ascending
+                desc: Descending
+
+            header.content.pagination:
+              type: toggle
+              label: Pagination
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
+
+            header.content.url_taxonomy_filters:
+              type: toggle
+              label: URL Taxonomy Filters
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool

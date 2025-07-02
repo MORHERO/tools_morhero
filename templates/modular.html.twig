@@ -1,0 +1,10 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+    {{ page.content|raw }}
+
+    {% for module in page.collection() if module.header.visible is not same as(false) %}
+        {{ module.content|raw }}
+    {% endfor %}
+
+{% endblock %}
