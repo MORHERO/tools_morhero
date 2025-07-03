@@ -724,6 +724,10 @@ button.submit:after {
   }
 }
 
+.copy-to-clipboard > span {
+  display: none;
+}
+
 section[modular=team-generator] {
   max-width: 1440px;
   padding: 60px 20px;

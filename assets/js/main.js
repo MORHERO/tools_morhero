@@ -15,6 +15,19 @@ window.onload = function() {
 	}
 
 	/*
+	## MODULAR PARTS
+	*/
+
+	/* ## COPY TO CLIPBOARD ## */
+	const ctc_dom = document.querySelectorAll('.copy-to-clipboard');
+	if(ctc_dom) { // Check if module exist on page
+		const ctc = []
+		ctc_dom.forEach((element, index) => {
+			ctc[index] = new COPY_TO_CLIPBOARD(element);
+		});
+	}
+
+	/*
 	## MODULARS
 	*/
 

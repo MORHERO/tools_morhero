@@ -1,0 +1,8 @@
+.copy-to-clipboard {
+	> button[task=copy] {
+
+	}
+	> span {
+		display: none;
+	}
+}

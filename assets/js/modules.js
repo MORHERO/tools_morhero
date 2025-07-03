@@ -35,6 +35,26 @@ class SIDENAV {
 }
 
 /*
+## MODULAR PARTS
+*/
+class COPY_TO_CLIPBOARD {
+	constructor (parent) {
+		const that = this
+		this._parent = parent;
+		this._copy_btn = parent.querySelector('button');
+		this._target_span = parent.querySelector('span');
+
+		// Setup Event Listeners
+		this._copy_event = this._copy_btn.addEventListener('click', () => this._copy());
+	}
+	_copy() {
+		// Copy the text inside the text field
+		navigator.clipboard.writeText(this._target_span.innerHTML);
+		return;
+	}
+}
+
+/*
 ## MODULARS
 */
 class TEAMGEN {
@@ -116,7 +136,7 @@ class TEAMGEN {
 
 		this._updatePlayerCount(+1);
 		this._player_id += 1;
-		console.log(this._playerlist);
+		//console.log(this._playerlist);
 		return;
 	}
 	_removePlayer(target_id) {
@@ -148,23 +168,22 @@ class TEAMGEN {
 
 		let rating_total = 0;
 
+		let copy_text = "";
+		let copy_span = this._parent.querySelector('[copyid]');
+
 		playerlist_sorted.forEach((player) => {
 			let name = player.name;
 			let rating = player.rating;
-
-			//console.log(player.name + ' - ' + player.rating);
 
 			rating_total += player.rating;
 		});
 
 		let rating_average = rating_total / this._player_count;
-		console.log('Rating Total: ' + rating_total);
-		console.log('Rating Average: ' + rating_average);
-		console.log('team_amount: ' + team_amount);
 
 		// Loop playerlist until no one is left
 		while(playerlist_sorted.length > 0) {
 			let start_entries = playerlist_sorted.length;
+			let copy_team_text = [];
 			// Loop for the amount of teams that are wanted
 			for (let i = 0; i < team_amount; i++) {
 				// Check if Teamlist entry already exist
@@ -193,11 +212,17 @@ class TEAMGEN {
 			let team_rating_total = 0; 
 			let player_doms = [];
 
-			team.forEach((player) => {
+			let team_sorted = team.slice();
+			team_sorted.sort((a, b) => a.rating - b.rating);
+
+			team_sorted.forEach((player) => {
 				player_doms.push(that._getPlayerDom(player));
 				team_rating_total += player.rating;
 			});
 			let team_dom = that._getTeamDom(player_doms, index, (team_rating_total / team.length));
+
+			copy_text += that._getTeamCopyText(team_sorted, index, (team_rating_total / team.length));
+			copy_span.innerHTML = copy_text;
 
 			that._parent.querySelector('.result .teams').appendChild(team_dom);
 		});
@@ -238,5 +263,17 @@ class TEAMGEN {
 		});
 
 		return div_team;
+	}
+	_getTeamCopyText(team, team_index, team_rating_average) {
+		let copy_text = "";
+		copy_text += 'Team ' + team_index + '\n';
+		copy_text += 'Teamrating: ' + team_rating_average + '\n';
+		
+		team.forEach((player) => {
+			copy_text += ' - ' + player.name + ' | ' + player.rating.toString() + '\n';
+		});
+		copy_text += '\n';
+
+		return copy_text;
 	}
 }
