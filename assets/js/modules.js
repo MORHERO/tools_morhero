@@ -162,21 +162,29 @@ class TEAMGEN {
 		console.log('Rating Average: ' + rating_average);
 		console.log('team_amount: ' + team_amount);
 
+		// Loop playerlist until no one is left
 		while(playerlist_sorted.length > 0) {
+			let start_entries = playerlist_sorted.length;
+			// Loop for the amount of teams that are wanted
 			for (let i = 0; i < team_amount; i++) {
+				// Check if Teamlist entry already exist
 				if(!this._teamlist[i]) {
 					this._teamlist[i] = [];
 				}
-
+				// Make sure playerlist has entries left
 				if(playerlist_sorted[0]) {
-					// add lowest entry and it
+					// add lowest entry and remove it
 					this._teamlist[i].push(playerlist_sorted[0]);
 					playerlist_sorted.shift();
 				}
-				if(playerlist_sorted[playerlist_sorted.length-1]) {
-					// add highest entry and it
-					this._teamlist[i].push(playerlist_sorted[playerlist_sorted.length-1]);
-					playerlist_sorted.pop();
+				// Check if there where enogh entries for double sorting
+				if(start_entries >= team_amount*2) {
+					// Make sure playerlist has entries left
+					if(playerlist_sorted[playerlist_sorted.length-1]) {
+						// add highest entry and remove it
+						this._teamlist[i].push(playerlist_sorted[playerlist_sorted.length-1]);
+						playerlist_sorted.pop();
+					}
 				}
 			}
 		}
@@ -201,7 +209,7 @@ class TEAMGEN {
 		// <div class="player flexbox">
 		//		<p class="name">[player.name]</p><p class="rating">[player.rating]</p>
 		// </div>
-		let div_player = cdm.createSimpleElement('div', '', [['style', 'player flexbox']]);
+		let div_player = cdm.createSimpleElement('div', '', [['class', 'player flexbox']]);
 		let p_player_name = cdm.createSimpleElement('span', 'name', '', player.name);
 		let p_player_rating = cdm.createSimpleElement('span', 'rating', '', player.rating.toString());
 		div_player.appendChild(p_player_name);

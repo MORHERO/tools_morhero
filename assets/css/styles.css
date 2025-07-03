@@ -762,10 +762,37 @@ section[modular=team-generator] .main .settings {
   margin: 46px 0px 10px;
 }
 section[modular=team-generator] .main .settings h3 {
+  text-decoration: none;
   margin: -38px 0 12px -14px;
   border: 2px solid #00FFFF;
   padding: 6px 6px 4px;
   width: fit-content;
+}
+section[modular=team-generator] .result h3 {
+  margin: 0;
+}
+section[modular=team-generator] .result .main-result {
+  border: 2px solid #00FFFF;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+section[modular=team-generator] .result .alternatives {
+  margin-bottom: 20px;
+}
+section[modular=team-generator] .result .team {
+  margin-right: 24px;
+}
+section[modular=team-generator] .result .teamname {
+  font-size: 20px;
+}
+section[modular=team-generator] .result .teamrating {
+  text-decoration: underline;
+}
+section[modular=team-generator] .result .player {
+  column-gap: 12px;
+}
+section[modular=team-generator] .result .player .name {
+  flex-basis: 50%;
 }
 
 section[modular=base-text] {

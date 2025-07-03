@@ -29,8 +29,8 @@
                             <label>Rating</label>
                             <div class="wrap">
                                 <input type="number" id="player_rating_master" name="player_rating_master" oninput="this.style.width = (this.value.length * 0.8) + 'em'" min="2">
-                                <button class="value-control" onclick="team_amount.stepUp()" title="Rating erhöhen" aria-label="Rating erhöhen">+</button>
-                                <button class="value-control" onclick="team_amount.stepDown()" title="Rating verringern" aria-label="Rating verringern">-</button>
+                                <button class="value-control" onclick="player_rating_master.stepUp()" title="Rating erhöhen" aria-label="Rating erhöhen">+</button>
+                                <button class="value-control" onclick="player_rating_master.stepDown()" title="Rating verringern" aria-label="Rating verringern">-</button>
                             </div>
                         </div>
                     </div>
@@ -88,14 +88,23 @@
             </div>
             
             <div class="result">
-                <div class="teams flexbox">
-                    <!--<div class="team">
-                        <p class="teamname">Team 1</p>
-                        <p class="teamrating">Teamrating: <span target="team_rating">1000</span></p>
-                        <div class="player flexbox">
-                            <span class="name">Beispielname</span><span class="rating">10500</span>
-                        </div>
-                    </div>-->
+                <div class="main-result">
+                    <h3>Fairest Ergebniss</h3>
+                    <div class="teams flexbox">
+                        <!--<div class="team">
+                            <p class="teamname">Team 1</p>
+                            <p class="teamrating">Teamrating: <span target="team_rating">1000</span></p>
+                            <div class="player flexbox">
+                                <span class="name">Beispielname</span><span class="rating">10500</span>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+                <div class="alternatives">
+                    <h3>Alternative Ergebnisse</h3>
+                    <div class="alt-list">
+                        
+                    </div>
                 </div>
 
                 <button task="return">Zurück</button>
