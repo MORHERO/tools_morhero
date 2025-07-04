@@ -100,7 +100,6 @@ class TEAMGEN {
 		this._return_to_gen_event = parent.querySelector('button[task=return]').addEventListener('click', () => this.tns.goTo(0));
 	}
 
-
 	_addPlayer() {
 		let that = this;
 
@@ -112,17 +111,17 @@ class TEAMGEN {
 		let table_row = cdm.createSimpleElement('tr', '', [['entry', this._player_id]]);
 
 		// <td><input type="text" name="player_name_[this._player_id]" value="[this._input_playername.value]"></td>
-		let td_name = cdm.createSimpleElement('td');
+		let td_name = cdm.createSimpleElement('td', 'name');
 		let input_name = cdm.createSimpleElement('input', '', [['name', 'player_name_' + this._player_id],['value', name]]);
 		td_name.appendChild(input_name);
 
 		// <td><input type="text" name="player_name_[this._player_id]" value="[this._input_playerrating.value]"></td>
-		let td_rating = cdm.createSimpleElement('td');
+		let td_rating = cdm.createSimpleElement('td', 'rating');
 		let input_rating = cdm.createSimpleElement('input', '', [['name', 'player_rating_' + this._player_id],['value', rating]]);
 		td_rating.appendChild(input_rating)
 
 		// <td><button>REMOVE</button></td>
-		let td_remove = cdm.createSimpleElement('td');
+		let td_remove = cdm.createSimpleElement('td', 'options');
 		let btn_remove = cdm.createSimpleElement('button', '', [['target', this._player_id]], 'REMOVE');
 		// Setup Remove Player eventlistener
 		btn_remove.addEventListener('click', (e) => this._removePlayer(e.srcElement.getAttribute('target')));
@@ -140,6 +139,22 @@ class TEAMGEN {
 		this._updatePlayerCount(+1);
 		this._player_id += 1;
 
+		// Add Eventlistener for value change
+		input_name.addEventListener('input', (e) => this._updatePlayer(e.target));
+		input_rating.addEventListener('input', (e) => this._updatePlayer(e.target));
+
+		return;
+	}
+	_updatePlayer(target) {
+		let player_id = target.parentElement.parentElement.getAttribute('entry');
+		let update_field = target.parentElement.className;
+
+		if(update_field == 'name') {
+			this._playerlist[player_id].name = target.value;
+		}else {
+			this._playerlist[player_id].rating = target.value;
+		}
+
 		return;
 	}
 	_removePlayer(target_id) {
@@ -151,13 +166,13 @@ class TEAMGEN {
 
 		return;
 	}
-
 	_updatePlayerCount(value) {
 		this._player_count += value;
 		this._player_count_dom.innerHTML = this._player_count;
 
 		return;
 	}
+
 
 	_generateTeams() {
 		this._clearResults();
