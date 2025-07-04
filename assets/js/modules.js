@@ -78,6 +78,9 @@ class TEAMGEN {
 		this._settings_rating_enabled_dom = parent.querySelector('input[name=rating_enabled]');
 		this._settings_rating_inverted_dom = parent.querySelector('input[name=rating_inverted]');
 
+		this._result_teams_main_dom = parent.querySelector('.result .teams');
+		this._result_teams_alt_dom = parent.querySelector('.result .alt-list');
+
 		this._teamlist = [];
 
 		this.tns = tns({
@@ -136,7 +139,7 @@ class TEAMGEN {
 
 		this._updatePlayerCount(+1);
 		this._player_id += 1;
-		
+
 		return;
 	}
 	_removePlayer(target_id) {
@@ -157,6 +160,8 @@ class TEAMGEN {
 	}
 
 	_generateTeams() {
+		this._clearResults();
+
 		let that = this;
 
 		let team_amount = this._settings_team_amount_dom.value;
@@ -224,7 +229,7 @@ class TEAMGEN {
 			copy_text += that._getTeamCopyText(team_sorted, index, (team_rating_total / team.length));
 			copy_span.innerHTML = copy_text;
 
-			that._parent.querySelector('.result .teams').appendChild(team_dom);
+			that._result_teams_main_dom.appendChild(team_dom);
 		});
 
 		this.tns.goTo(1);
@@ -275,5 +280,12 @@ class TEAMGEN {
 		copy_text += '\n';
 
 		return copy_text;
+	}
+
+	_clearResults() {
+		this._teamlist = [];
+		this._result_teams_main_dom.innerHTML = "";
+
+		return;
 	}
 }
