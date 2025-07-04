@@ -101,8 +101,8 @@ class TEAMGEN {
 	_addPlayer() {
 		let that = this;
 
-		let name = this._input_playername.value;
-		let rating = this._input_playerrating.value;
+		let name = (this._input_playername.value === "")? "-" : this._input_playername.value;
+		let rating = (this._input_playerrating.value === "")? 0 : this._input_playerrating.value;
 
 		// Create dom elements
 		// <tr entry=[this._player_id]></tr>
@@ -110,12 +110,12 @@ class TEAMGEN {
 
 		// <td><input type="text" name="player_name_[this._player_id]" value="[this._input_playername.value]"></td>
 		let td_name = cdm.createSimpleElement('td');
-		let input_name = cdm.createSimpleElement('input', '', [['name', 'player_name_' + this._player_id],['value', this._input_playername.value]]);
+		let input_name = cdm.createSimpleElement('input', '', [['name', 'player_name_' + this._player_id],['value', name]]);
 		td_name.appendChild(input_name);
 
 		// <td><input type="text" name="player_name_[this._player_id]" value="[this._input_playerrating.value]"></td>
 		let td_rating = cdm.createSimpleElement('td');
-		let input_rating = cdm.createSimpleElement('input', '', [['name', 'player_rating_' + this._player_id],['value', this._input_playerrating.value]]);
+		let input_rating = cdm.createSimpleElement('input', '', [['name', 'player_rating_' + this._player_id],['value', rating]]);
 		td_rating.appendChild(input_rating)
 
 		// <td><button>REMOVE</button></td>
@@ -132,11 +132,11 @@ class TEAMGEN {
 		table_row.appendChild(td_remove);
 
 		this._playerlist_dom.appendChild(table_row);
-		this._playerlist[this._player_id] = {name: this._input_playername.value, rating: parseInt(this._input_playerrating.value)};
+		this._playerlist[this._player_id] = {name: name, rating: parseInt(rating)};
 
 		this._updatePlayerCount(+1);
 		this._player_id += 1;
-		//console.log(this._playerlist);
+		
 		return;
 	}
 	_removePlayer(target_id) {
