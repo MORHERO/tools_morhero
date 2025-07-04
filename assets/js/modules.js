@@ -146,7 +146,7 @@ class TEAMGEN {
 		let entry = this._parent.querySelector('[entry="'+ target_id +'"]');
 		entry.remove();
 
-		this._playerlist[this._player_id] = '';
+		this._playerlist.splice(target_id, 1)
 		this._updatePlayerCount(-1);
 
 		return;
@@ -169,19 +169,20 @@ class TEAMGEN {
 		let rating_inverted = this._settings_rating_inverted_dom.value;
 
 		let playerlist_sorted = this._playerlist.slice();
+		// Sort the list by rating and remove empty entries
 		playerlist_sorted.sort((a, b) => a.rating - b.rating);
+		playerlist_sorted = playerlist_sorted.filter(function (e) {
+			return e; // Returns only the truthy values
+		});
 
 		let rating_total = 0;
+		// Get the total rating for the team
+		playerlist_sorted.forEach((player) => {
+			rating_total += player.rating;
+		});
 
 		let copy_text = "";
 		let copy_span = this._parent.querySelector('[copyid]');
-
-		playerlist_sorted.forEach((player) => {
-			let name = player.name;
-			let rating = player.rating;
-
-			rating_total += player.rating;
-		});
 
 		let rating_average = rating_total / this._player_count;
 
