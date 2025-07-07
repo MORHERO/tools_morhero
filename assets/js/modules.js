@@ -181,7 +181,7 @@ class TEAMGEN {
 
 		let team_amount = this._settings_team_amount_dom.value;
 		let rating_enabled = this._settings_rating_enabled_dom.checked;
-		let rating_inverted = this._settings_rating_inverted_dom.value;
+		let rating_inverted = this._settings_rating_inverted_dom.checked;
 
 		let copy_text = "";
 		let copy_span = this._parent.querySelector('[copyid]');
@@ -189,7 +189,11 @@ class TEAMGEN {
 		if(rating_enabled) {
 			let playerlist_sorted = this._playerlist.slice();
 			// Sort the list by rating and remove empty entries
-			playerlist_sorted.sort((a, b) => a.rating - b.rating);
+			if(rating_inverted) {
+				playerlist_sorted.sort((a, b) => b.rating - a.rating);
+			} else {
+				playerlist_sorted.sort((a, b) => a.rating - b.rating);
+			}
 			playerlist_sorted = playerlist_sorted.filter(function (e) {
 				return e; // Returns only the truthy values
 			});
