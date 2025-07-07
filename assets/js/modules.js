@@ -180,51 +180,74 @@ class TEAMGEN {
 		let that = this;
 
 		let team_amount = this._settings_team_amount_dom.value;
-		let rating_enabled = this._settings_rating_enabled_dom.value;
+		let rating_enabled = this._settings_rating_enabled_dom.checked;
 		let rating_inverted = this._settings_rating_inverted_dom.value;
-
-		let playerlist_sorted = this._playerlist.slice();
-		// Sort the list by rating and remove empty entries
-		playerlist_sorted.sort((a, b) => a.rating - b.rating);
-		playerlist_sorted = playerlist_sorted.filter(function (e) {
-			return e; // Returns only the truthy values
-		});
-
-		let rating_total = 0;
-		// Get the total rating for the team
-		playerlist_sorted.forEach((player) => {
-			rating_total += player.rating;
-		});
 
 		let copy_text = "";
 		let copy_span = this._parent.querySelector('[copyid]');
 
-		let rating_average = rating_total / this._player_count;
+		if(rating_enabled) {
+			let playerlist_sorted = this._playerlist.slice();
+			// Sort the list by rating and remove empty entries
+			playerlist_sorted.sort((a, b) => a.rating - b.rating);
+			playerlist_sorted = playerlist_sorted.filter(function (e) {
+				return e; // Returns only the truthy values
+			});
 
-		// Loop playerlist until no one is left
-		while(playerlist_sorted.length > 0) {
-			let start_entries = playerlist_sorted.length;
-			let copy_team_text = [];
-			// Loop for the amount of teams that are wanted
-			for (let i = 0; i < team_amount; i++) {
-				// Check if Teamlist entry already exist
-				if(!this._teamlist[i]) {
-					this._teamlist[i] = [];
-				}
-				// Make sure playerlist has entries left
-				if(playerlist_sorted[0]) {
-					// add lowest entry and remove it
-					this._teamlist[i].push(playerlist_sorted[0]);
-					playerlist_sorted.shift();
-				}
-				// Check if there where enogh entries for double sorting
-				if(start_entries >= team_amount*2) {
-					// Make sure playerlist has entries left
-					if(playerlist_sorted[playerlist_sorted.length-1]) {
-						// add highest entry and remove it
-						this._teamlist[i].push(playerlist_sorted[playerlist_sorted.length-1]);
-						playerlist_sorted.pop();
+			// Loop playerlist until no one is left
+			while(playerlist_sorted.length > 0) {
+				let start_entries = playerlist_sorted.length;
+				let copy_team_text = [];
+				// Loop for the amount of teams that are wanted
+				for (let i = 0; i < team_amount; i++) {
+					// Check if Teamlist entry already exist
+					if(!this._teamlist[i]) {
+						this._teamlist[i] = [];
 					}
+					// Make sure playerlist has entries left
+					if(playerlist_sorted[0]) {
+						// add lowest entry and remove it
+						this._teamlist[i].push(playerlist_sorted[0]);
+						playerlist_sorted.shift();
+					}
+					// Check if there where enogh entries for double sorting
+					if(start_entries >= team_amount*2) {
+						// Make sure playerlist has entries left
+						if(playerlist_sorted[playerlist_sorted.length-1]) {
+							// add highest entry and remove it
+							this._teamlist[i].push(playerlist_sorted[playerlist_sorted.length-1]);
+							playerlist_sorted.pop();
+						}
+					}
+				}
+			}
+		}else {
+			let playerlist = this._playerlist.slice();
+
+			// Loop playerlist until no one is left
+			while(playerlist.length > 0) {
+				console.log("START WHILE");
+
+				for (let i = 0; i < team_amount; i++) {
+					let random_entry = Math.floor(Math.random() * (playerlist.length));
+
+					// Check if Teamlist entry already exist
+					if(!this._teamlist[i]) {
+						this._teamlist[i] = [];
+					}
+					// Make sure playerlist entry exist
+					if(playerlist[random_entry]) {
+						// add entry and remove it
+						this._teamlist[i].push(playerlist[random_entry]);
+						playerlist.splice(random_entry, 1);
+					}else if(playerlist[0]){
+						// add first entry and remove it
+						this._teamlist[i].push(playerlist[0]);
+						playerlist.shift();
+					} else {
+						playerlist = [];
+					}
+
 				}
 			}
 		}
@@ -240,9 +263,9 @@ class TEAMGEN {
 				player_doms.push(that._getPlayerDom(player));
 				team_rating_total += player.rating;
 			});
-			let team_dom = that._getTeamDom(player_doms, index, (team_rating_total / team.length));
+			let team_dom = that._getTeamDom(player_doms, index,  team_rating_total);
 
-			copy_text += that._getTeamCopyText(team_sorted, index, (team_rating_total / team.length));
+			copy_text += that._getTeamCopyText(team_sorted, index,  team_rating_total);
 			copy_span.innerHTML = copy_text;
 
 			that._result_teams_main_dom.appendChild(team_dom);
@@ -251,6 +274,7 @@ class TEAMGEN {
 		this.tns.goTo(1);
 		return;
 	}
+
 	_getPlayerDom(player) {
 		// <div class="player flexbox">
 		//		<p class="name">[player.name]</p><p class="rating">[player.rating]</p>
